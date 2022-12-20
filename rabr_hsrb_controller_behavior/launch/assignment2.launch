@@ -1,0 +1,13 @@
+<launch>
+    <include file="$(find hsrb_gazebo_launch)/launch/hsrb_empty_world.launch">
+        <arg name="rviz" value="false"/>
+    </include>
+    
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rabr_hsrb_controller_behavior)/config/rviz.rviz" />
+
+    <rosparam command = "load" file="$(find rabr_hsrb_controller_behavior)/config/config.yaml" />
+
+    <node name="hrsb_laser_scan" type="rabr_hsrb_controller_behavior.py" pkg="rabr_hsrb_controller_behavior" output="screen"></node>
+
+    <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="2 0 1 3.14 -1.57 0 map my_frame 10" />
+</launch>
